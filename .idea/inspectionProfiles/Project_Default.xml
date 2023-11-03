@@ -1,0 +1,15 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="emp_app.views.index.html" />
+          <option value="django.contrib.auth.login.html" />
+          <option value="django.db.models.fields.PositiveSmallIntegerField.__mul__" />
+          <option value="django.db.models.fields.PositiveIntegerField.__mul__" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

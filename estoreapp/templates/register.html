@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <style>
+     body{
+    background-image: url("http://www.clipartbest.com/cliparts/9iR/bM6/9iRbM6a6T.jpg");
+    background-repeat: repeat-xy;
+    background-attachment: scroll;
+    }
+    .frame{
+         border: 1px solid black;
+         background: #FEF9E7;
+         width:570px;
+         height:840px;
+         padding:15px;
+         margin-left:90px;
+         margin-top:50px;
+         }
+         h4{
+         color:red;
+         font-size:10px;
+         }
+    </style>
+</head>
+<body>
+
+{% extends "base.html" %}
+{% load static %}
+{%block title%} register{% endblock %}
+{% block body %}
+<div class="frame">
+<h2>REGISTER HERE</h2>
+ <form action="register" method="post">
+        {% csrf_token%}
+    <div class="mb">
+    <label  class="form-label">First Name</label>
+    <input type="text" class="form-control" name="first" value="{{first}}" required><br>
+
+    <label  class="form-label">Last Name</label>
+    <input type="text" class="form-control" name="last" value="{{last}}" required ><br>
+
+
+    <label  class="form-label">Email</label>
+    <input type="email" class="form-control" name="email" value="{{email}}" required ><br>
+    <div>
+        {% for messages in messages %}
+        {%if "email" in messages.tags %}
+            <small class="text-danger">{{messages}}</small>
+        {%endif%}
+     {% endfor %}
+      </div>
+    <label  class="form-label">Phone</label>
+    <input  class="form-control" name="phone" value="{{phone}}"onfocus="if (this.value=='Phone number') this.value = ''" type="tel" pattern="[0-9.]+" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+            maxlength="10"   required >
+
+
+    <label  class="form-label">password</label>
+    <input type="password" class="form-control" name="pass1" value="{{pass1}}"required>
+
+    <label  class="form-label">confirm password</label>
+    <input type="password" class="form-control" name="pass2" required ><br>
+
+  </div>
+     <div>
+
+     {% for messages in messages %}
+        {%if "password" in messages.tags %}
+            <small class="text-danger">{{messages}}</small>
+        {% endif %}
+     {% endfor %}
+     </div>
+  <div><button type="submit" class="btn btn-primary">Register</button></div>
+ <div class="text-center text-primary fw-bold">
+     <small>Already Have Account?  <a href="{% url 'login' %}">Login</a></small>
+ </div>
+
+</form>
+
+
+</div>
+
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LOGIN TO BOOK MART</title>
+    <script src="https://kit.fontawesome.com/65b62c81b2.js" crossorigin="anonymous"></script>
+    <style>
+
+        h2{
+        margin-left: 200px;
+        margin-top: 20px;
+        font-size: 50px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-style: normal;
+        font-weight: bold;
+        color:#CB4335;
+        }
+
+        h4{
+        margin-left: 200px;
+        font-size: 25px;
+        text-decoration-line:  underline;
+        }
+
+        .create{
+        font-size: 25px;
+        margin-top:-40px;
+        margin-left: 232px;
+        }
+
+        h6{
+        margin-left: 200px;
+        color: #CD6155;
+        font-size: 17px;
+
+        }
+        a:link,a:visited{
+        text-decoration-line: none;
+        color:#CD6155;
+        }
+        a:hover,a:active{
+        text-decoration-line: none;
+        color:#CB4335;
+        }
+        .submit{
+        background-color: #CD6155;
+        color: white;
+        font-size: 20px;
+        text-align: center;
+        width : 100px;
+        padding : 5px;
+        margin-left: 200px;
+        margin-top: 10px;
+        text-transform: capitalize;
+        cursor: pointer;
+        }
+
+        .frame{
+         border: 1px solid black;
+         background: #FEF9E7;
+         padding:15px;
+         margin-left:180px;
+         margin-top:150px;
+         }
+
+    body{
+    background-color: grey;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbPXCP8w1P4C5GGn5QwFDkjxhZz3Waue5uzg&usqp=CAU.jpg");
+    background-repeat: repeat-xy;
+    background-attachment: scroll;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container frame">
+    <div>
+    {% for messages in messages %}
+        {%if "done" in messages.tags %}
+            <small class="text-success">{{messages}}</small>
+        {% endif %}
+     {% endfor %}
+    </div>
+    <div class="row my-3">
+    <div class="col-sm-5 offset-sm-3">
+    <h2><i class="fa-solid fa-book"></i>Login</h2>
+    <h4>or</h4>
+    <p class="create"><a href="{% url 'register' %}" target="_blank">create an account</a></p>
+    <form action="/login" method="post">
+    {% csrf_token %}
+        <label  class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" required ><br>
+
+        <label  class="form-label">password</label>
+        <input type="password" class="form-control" name="pass1" required>
+
+        <input class="submit" style= "color:white" type="submit" value="login">
+    <br>
+    </form>
+    </div>
+ </div>
+ </div>
+<h6>By clicking on Login, I accept the <span style="color:black">Terms and Conditions</span> & <span style="color:black">Privacy Policy </span></h6>
+{% endblock %}
+</body>
+</html>
