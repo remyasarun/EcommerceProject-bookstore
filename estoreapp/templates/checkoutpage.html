@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkoutpage</title>
+
+</head>
+<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block cart %}
+<div class="row mt-5">
+    <div class="col-sm-6">
+        <h4>Order Summery</h4>
+        <hr>
+        {% for item in cart_item %}
+          <div class="card mb-2">
+              <div class="card-body shadow bg-body-tertiary rounded bg-body-secondary">
+                  <h5>Product: {{item.product.Title}} </h5>
+                  <p>Quantity: {{item.quantity}}</p>
+                  <p class="fw-bold">Price: {{item.product.Discountprice}}</p>
+              </div>
+          </div>
+        {% endfor%}
+<!--        {% for item in book %}-->
+<!--          <div class="card mb-2">-->
+<!--              <div class="card-body shadow bg-body-tertiary rounded bg-body-secondary">-->
+<!--                  <h5>Product: {{item.Title}} </h5>-->
+<!--                  <p class="fw-bold">Price: {{item.Discountprice}}</p>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--        {% endfor%}-->
+        <p class="fw-bold">total cost  + Rs. 40 = {{totalamount}}</p>
+
+     </div>
+     <div class="col-sm-4 offset-sm-1">
+         <a href="{% url 'profile'%}"> Add Another Address </a>
+         <hr>
+         <h3>Select Shipping Address</h3>
+
+         <form method="post" id="myform">
+             {% csrf_token  %}
+             {% for ad in add %}
+             <div class="form-check mt-2 mb-5">
+                <input class="form-check-input" type="radio" name="custid" id="custid{{forloop.counter}}" value="{{ad.id}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label class="form-check-input fw-bold" for="custid{{forloop.counter}}">No.{{forloop.counter}}</label>
+            </div>
+             <div class="card bg-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 20rem;" >
+                 <div class="card-body " >
+                     <p>  {{ad.Name}} </p>
+                     <p>  {{ad.Address}} </p>
+                     <p>  {{ad.City}} </p>
+                     <p>  {{ad.Mobile}} </p>
+                     <p>  {{ad.Pincode}} </p>
+                     <p>  {{ad.State}} </p>
+                 </div>
+             </div>
+
+             {% endfor %}
+             </form>
+             <div class="form-check mt-2 mb-5">
+                 <label for="totalamount" class="form-label">Total Amount </label><br>
+                 <input class="shadow bg-body-tertiary rounded" type="number" form="form-control" name="totalamount" value="{{totalamount}}" readonly>
+             </div>
+
+              <h4>Select Payment Mode</h4>
+             <form action="COD" method="post">
+            {% csrf_token %}
+                 <button type="submit" class="btn btn-warning f-grid gap-2 col-6 mx-auto  fw-bold">COD</button>
+             </form>
+<!--                 <button type="submit" class="btn btn-warning d-grid gap-2 col-6 mx-auto  fw-bold">Continue</button>-->
+
+              <div>
+                 <button  id="rzp-button1" type="submit" class=" rzp-button1 btn btn-warning d-grid gap-2 col-6 mx-auto  fw-bold">Payment</button>
+             </div>
+
+
+          </div>
+     </div>
+
+
+</div>
+
+</div>
+
+{% endblock %}
+
+{% block payment-gateway %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+
+    var options = {
+        "key": "rzp_test_H2a5XLHhEBb73R",      // Enter the Key ID generated from the Dashboard
+        "amount": "{{razoramount}} ",          // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        "currency": "INR",
+        "name": "Bookmart",
+        "description": "Purchase Product",
+        "image": "https://example.com/your_logo",
+        "order_id": "{{order_id}}",     //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+        "handler": function (response){
+            console.log('success')
+        var form =document.getElementById('myform');
+<!--        alert(response.razorpay_payment_id);-->
+<!--        alert(response.razorpay_order_id);-->
+<!--        alert(response.razorpay_signature)-->
+        window.location.href = 'http://localhost:8000/paymentdone order_id=$(response.razorpay_order_id)&payment_id=$(response.razorpay_payment_id)
+        cust_id=${form.elements['custid'].value}'
+    },
+
+    "theme": {
+        "color": "#3399cc"
+    }
+};
+var rzp1 = new Razorpay(options);
+rzp1.on('payment.failed', function (response){
+
+        alert(response.error.description);
+
+});
+document.getElementById('rzp-button1').onclick = function(e){
+    console.log('button click');
+    rzp1.open();
+    e.preventDefault();
+}
+
+</script>
+
+{% endblock %}
+
+
+</body>
+</html>

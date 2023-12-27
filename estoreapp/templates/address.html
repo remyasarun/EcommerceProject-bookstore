@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ADDRESS</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} address {% endblock %}
+{% block profile %}
+<div class="container my-5">
+     <div class="row">
+      <h3>Welcome</h3>
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="g-grid"><a href="{% url 'profile' %}" class="btn ">Profile</a></li>
+                <li class="g-grid"><a href="{% url 'address' %}" class="btn btn-primary">Address</a></li>
+            </ul>
+        </div>
+         <div class="col-sm-8 offset-sm-2">
+            <div class="row">
+                {% for ad in add %}
+                <div class="col-sm-6">
+                    <div class="card m-2">
+                        <div class="card-body">
+                            <h3>No.  {{forloop.counter}}</h3>
+                            <p>Name :{{ad.Name}}</p>
+                            <p>Address :{{ad.Address}}</p>
+                            <p>City :{{ad.City}}</p>
+                            <p>Mobile :{{ad.Mobile}}</p>
+                            <p>Pincode :{{ad.Pincode}}</p>
+                            <p>State :{{ad.State}}</p>
+                            <p class="text-center"><a href="{% url 'updateaddress' pk=ad.id %} "  type=button class="btn btn-success" > Update</a> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {% endfor %}
+         </div>
+      </div>
+</div>
+{% endblock %}
+</body>
+</html>

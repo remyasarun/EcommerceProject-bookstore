@@ -7,7 +7,7 @@
 <body>
 {% extends 'base.html' %}
 {% load static %}
-{%block title%} search{% endblock %}
+{%block title%}{% endblock %}
 {% block search %}
 <div class="card">
 
@@ -17,8 +17,9 @@
     {% if filtered_model %}
         <ul>
             {% for BOOK in filtered_model %}
+
                 <a href="" class="btn">
-                    <div>
+                    <div style="margin-left:100px">
                         <img src="{{BOOK.Productimage.url}}" width="300px" height="200px">
                         <div class="fw-bold">{{BOOK.Title}}</div>
                         <div class="fw-bold text-danger">Rs.{{BOOK.Discountprice}}/-
@@ -26,12 +27,11 @@
                         </div>
                     </div>
                 </a>
-
             {% endfor %}
-        </ul>
     {% else %}
-        <p>No results found for "{{ search_query }}"</p>
+        <h4>No results found for "{{ search_query }}"</h4>
     {% endif %}
+       </ul>
 {% endif %}
 </div>
 {% include "footer.html" %}

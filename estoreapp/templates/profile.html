@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PROFILE</title>
+</head>
+<body>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block profile %}
+<div class="container my-5">
+    <div class="row">
+      <h3>Welcome</h3>
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="g-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
+                <li class="g-grid"><a href="{% url 'address' %}" class="btn">Address</a></li>
+            </ul>
+        </div>
+
+      <div class="col-sm-8 offset-sm-2">
+         <form  action="" method="post">
+           {% csrf_token%}
+            <div>
+           {% for fm in form %}
+             {{fm.label_tag}} {{fm}}
+           {% endfor%}
+            </div>
+            <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+             {% if messages %}
+                {% for msg in messages %}
+             <div>{{msg}}</div>
+                {% endfor %}
+             {% endif %}
+             {% if form.none_field_errors  %}
+                {% for error in form.none_field_errors  %}
+                    <P class="alert alert-danger my-3">{{error}}</P>
+                {% endfor %}
+             {% endif %}
+         </form>
+      </div>
+     </div>
+</div>
+{% endblock %}
+</body>
+</html>

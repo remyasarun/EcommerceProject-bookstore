@@ -22,14 +22,9 @@
 {% block category %}
 <div class="container my-5">
     <div class="row">
-        <div class="col-sm-5">
-            <div class="list-group">
-                {% for val in title %}
-                    <a class="list-group-item-list-group-item-action" href="{% url 'category' 'NV'%}" aria-current="true"> {{val.Title}}</a>
-                {% endfor %}
-            </div>
+
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-9 offset-sm-1">
             <div class="row">
                {% for prod in book %}
                 <div class="col text-center mb-6 ">

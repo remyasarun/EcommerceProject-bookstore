@@ -9,12 +9,14 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
+# import os
+# from pathlib import Path
+#
+# # Build paths inside the project like this: BASE_DIR / 'subdir'.
+# BASE_DIR = Path(__file__).resolve().parent.parent
 
-from pathlib import Path
-
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+import os
+BASE_DIR =os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -77,7 +79,7 @@ WSGI_APPLICATION = 'Ebookshop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'BookEcommerce',
+        'NAME': 'bookstore-ecommerce',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '127.0.0.1',
@@ -125,9 +127,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR/'media'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+STATICFILES_DIRS = [
+   os.path.join(BASE_DIR, "static"),
+   ]
 LOGIN_REDIRECT_URL = '/'
-
 AUTHENTICATION_BACKENDS = (
         'django.contrib.auth.backends.ModelBackend',
     )
@@ -136,3 +140,6 @@ AUTHENTICATION_BACKENDS = (
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+RAZOR_KEY_ID = 'rzp_test_H2a5XLHhEBb73R'
+RAZOR_KEY_SECRET = 'iakOvBjpoEFwxu6WHexI1v16'

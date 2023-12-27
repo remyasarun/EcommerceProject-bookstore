@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>productdetails</title>
+
 </head>
 <body>
 {% extends 'base.html' %}
+{% load static %}
 {% block category %}
-<div class="container my-5">
-    <div class="row flex justify-content-between">
+<div class="container my-5 product_data">
+    <div class="row flex justify-content-between ">
         <div class="img2 col-lg-5 mt-5 ">
             <img src="{{book.Productimage.url}}" class="image col-xs-6 col-xm-12 col-lg-12 mt-3 text-sm-center w-100 h-75" alt="">
         </div>
@@ -23,15 +25,44 @@
                 <li>{{book.Discription}}</li>
 
             </ul>
-            <form action="/add_to_cart" class="d-inline">
-                <input type="hidden" name="prod_id" value="{{book.id}}">
-                <button type="submit" class="btn btn-primary shadow px-5 py-2">ADD TO CART</button>
-            </form>
-            <a class="btn btn-warning shadow px-5 py-2 ms-4"href="{% url 'showcart' %}">BUY NOW</a>
+                <div class="col-md-14">
+
+                     <form action="addtocart" method="post" class="d-inline addtocart">
+                        {% csrf_token %}
+                    <input type="hidden" class="divpr" id="{{book.id}}" name="prod_id" value="{{book.id}}">
+                    <button type="submit" class="btn btn-primary shadow px-3 py-2 addtocart"><i class="fa-solid fa-cart-shopping"></i>ADD TO CART</button>
+                    </form>
+
+
+                    <form action="checkoutpage" method="post" class="d-inline ">
+                        {% csrf_token %}
+                    <input type="hidden" class="divpr"  name="prod_id" value="{{book.id}}">
+                    <button  class="btn btn-warning shadow px-3 py-2 ">BUY NOW</button>
+                    </form>
+
+                    <div>
+                    <form action="wishlist" method="post">
+                         {% csrf_token %}
+                    {% if wish %}
+                        <input name="prod_id" type="hidden"  value="{{book.id}}" >
+                         <button  class="btn btn-danger shadow px-5 py-2 ms-4 "><i class="fa-solid fa-heart fa-lg"></i></button>
+                    {% else %}
+                       <input name="prod_id" type="hidden"  value="{{book.id}}" >
+                        <button  class="btn btn-success shadow px-5 py-2 ms-4 "><i class="fa-solid fa-heart fa-lg"></i></button>
+                    {% endif %}
+
+                     </form>
+                    </div>
+
+                </div>
 
         </div>
          </div>
 </div>
+
+
+
 {% endblock %}
+
 </body>
 </html>
